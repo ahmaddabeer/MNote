@@ -31,14 +31,11 @@ class NoteViewModel @Inject constructor(private var repository: NoteRepository) 
         private set
 
 
-
     var createdAt by mutableStateOf("")
         private set
 
     var updatedAt by mutableStateOf("")
         private set
-
-
 
 
     fun onTitleChange(title1: String) {
@@ -104,9 +101,9 @@ class NoteViewModel @Inject constructor(private var repository: NoteRepository) 
     }
 
 
-    fun onSaveNote(){
+    fun onSaveNote() {
 
-        if(title.isNotBlank() && description.isNotBlank()){
+        if (title.isNotBlank() && description.isNotBlank()) {
 
 
             val note = NoteEntity(

@@ -122,7 +122,7 @@ fun HomeScreen(controller: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 value = search,
                 onValueChange = {
-                   search = it
+                    search = it
                 },
                 placeholder = {
                     Text(
