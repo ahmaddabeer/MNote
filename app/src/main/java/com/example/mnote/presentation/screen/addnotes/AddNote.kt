@@ -195,12 +195,13 @@ fun AddNote(controller: NavController) {
 
                         viewModel.onTimeChange(currentTime.toString())
                         viewModel.onCreatedAt(currentDate.toString())
+                        viewModel.onUpdateAt(currentDate.toString())
 
                         viewModel.onSaveNote()
 
                         Toast.makeText(
                             context,
-                            "Note Saved",
+                            "Saved",
                             Toast.LENGTH_SHORT
                         ).show()
 
@@ -212,6 +213,7 @@ fun AddNote(controller: NavController) {
                         }
                     }
                 },
+                enabled = viewModel.title.isNotBlank() && viewModel.description.isNotBlank(),
 
                 modifier = Modifier
                     .fillMaxWidth()

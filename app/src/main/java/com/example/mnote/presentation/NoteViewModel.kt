@@ -112,7 +112,6 @@ class NoteViewModel @Inject constructor(private var repository: NoteRepository) 
             val note = NoteEntity(
 
 
-                id = 0,
                 title = title,
                 description = description,
                 createdAt = createdAt.toLong(),
