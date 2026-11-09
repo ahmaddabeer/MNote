@@ -123,4 +123,19 @@ class NoteViewModel @Inject constructor(private var repository: NoteRepository) 
     }
 
 
+    fun onUpdateNote(note: NoteEntity) {
+
+        if (title.isNotBlank() && description.isNotBlank()) {
+
+            val updatedNote = note.copy(
+                title = title,
+                description = description,
+                updatedAt = System.currentTimeMillis()
+            )
+
+            updateNote(updatedNote)
+        }
+    }
+
+
 }

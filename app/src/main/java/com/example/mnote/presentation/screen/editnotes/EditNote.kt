@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +55,13 @@ fun EditNote(controller: NavHostController,
 
     val updatedCurrentTime = System.currentTimeMillis()
     val updatedCurrentDate = System.currentTimeMillis()
+
+    LaunchedEffect(note?.id) {
+        note?.let {
+            viewModel.onTitleChange(it.title)
+            viewModel.onDescriptionChange(it.description)
+        }
+    }
 
 
     Scaffold(
@@ -91,25 +99,36 @@ fun EditNote(controller: NavHostController,
             Text(text = "Note Title", style = MaterialTheme.typography.bodyLarge)
 
 
-            OutlinedTextField(
-                value = viewModel.title,
-                onValueChange = { viewModel.onTitleChange(it) },
-                label = { Text(text = "Enter your note title...") },
-                shape = RoundedCornerShape(12.dp),
-                singleLine = true
-
-            )
 
 
-            OutlinedTextField(
-                value = viewModel.description,
-                onValueChange = { viewModel.onDescriptionChange(it) },
-                label = { Text(text = "Enter your note title...") },
-                modifier = Modifier.height(100.dp),
-                shape = RoundedCornerShape(12.dp),
-                maxLines = 5
+                OutlinedTextField(
+                    value = viewModel.title,
+                    onValueChange = {viewModel.onTitleChange(it)},
+                    label = { Text(text = "Enter your note title...") },
+                    shape = RoundedCornerShape(12.dp),
+                    singleLine = true
 
-            )
+                )
+
+
+
+
+
+
+
+
+                OutlinedTextField(
+                    value = viewModel.description,
+                    onValueChange = { viewModel.onDescriptionChange(it) },
+                    label = { Text(text = "Enter your note title...") },
+                    modifier = Modifier.height(100.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    maxLines = 5
+
+                )
+
+
+
 
             Text(
                 "${viewModel.description.length} ",
@@ -120,8 +139,12 @@ fun EditNote(controller: NavHostController,
 
                     viewModel.onUpdateAt(updatedCurrentDate.toString())
 
-                    viewModel.updateNote(note!!)
+                  note?.let{
+
+                      viewModel.onUpdateNote(it)
+                  }
                     Toast.makeText(context,"Updating", Toast.LENGTH_SHORT).show()
+
                     controller.navigate(Route.HomeScreen){
 
                         popUpTo<Route.HomeScreen>{
